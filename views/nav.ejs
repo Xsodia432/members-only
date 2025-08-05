@@ -1,0 +1,21 @@
+<nav>
+  <a href="/"><h1>Home</h1> </a>
+  <div>
+    <% if(user.tier === 2) {%><a href="/membership"
+      ><div>Upgrade to Member</div></a
+    ><%}%>
+    <a href="/create"
+      ><div>
+        <span class="mdi mdi-plus"> </span>
+        <p>Create</p>
+      </div></a
+    >
+    <div class="profile-container" id="profile-container">JC</div>
+    <div class="profile-content" id="profile-content">
+      <form id="signout-form" action="/signout" method="POST">
+        <span><%=user.username%></span>
+        <button id="signout-button" type="submit">Signout</button>
+      </form>
+    </div>
+  </div>
+</nav>

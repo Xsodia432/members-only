@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    />
+    <script src="/scripts/script.js" defer></script>
+    <script src="/scripts/createPostScript.js" defer></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <title><%=title%></title>
+  </head>
+  <body>
+    <%- include('nav',{user:locals.user}) %>
+    <div class="container">
+      <h2>Create Post</h2>
+      <form class="member-container" id="create-form">
+        <div class="error-container" id="error-container"></div>
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" />
+        <textarea
+          placeholder="Text Content (optional)"
+          name="postcontent"
+        ></textarea>
+        <button class="btn-default">Post</button>
+      </form>
+    </div>
+  </body>
+</html>

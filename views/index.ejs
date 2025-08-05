@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    />
+    <script src="/scripts/script.js" defer></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <title><%=title%></title>
+  </head>
+  <body>
+    <% if(locals.user){%><%- include('nav',{user:user}) %><%}%>
+    <div class="container">
+      <%if(!locals.user){%> <%- include('signin')%><%}%> <% if(posts) {%> <%
+      posts.forEach(val => { %>
+      <div class="posts-container">
+        <%if(user.tier !== 2) {%>
+        <div class="post-information-container">
+          <div class="post-profile-circle">JC</div>
+          <span><%=val.first_name%> <%=val.last_name%></span>
+          <span class="time-stamp">3hrs ago</span>
+        </div>
+        <%}%>
+
+        <h1><%=val.title%></h1>
+        <p><%=val.post%></p>
+      </div>
+
+      <%})%> <%}%>
+    </div>
+  </body>
+</html>
