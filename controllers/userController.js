@@ -37,7 +37,7 @@ exports.index = async (req, res) => {
     title: "Home",
     errors: [],
     user: req.user,
-    posts,
+    posts: posts.rows,
   });
 };
 exports.signupPage = (req, res) => {

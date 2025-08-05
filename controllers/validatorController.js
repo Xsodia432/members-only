@@ -1,4 +1,5 @@
 const { body, validationResult } = require("express-validator");
+const userStorage = require("../database/dbQuery");
 // validation for inputs and others
 exports.loginInput = [
   body("username")
@@ -9,7 +10,11 @@ exports.loginInput = [
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.render("index", { title: "Home", errors: errors.array() });
+      res.render("index", {
+        title: "Home",
+        errors: errors.array(),
+        user: null,
+      });
       return;
     }
     next();
@@ -58,5 +63,27 @@ exports.postValidation = [
       return;
     }
     next();
+  },
+];
+exports.signInField = [
+  body("firstname").notEmpty().withMessage("Firstname should be empty."),
+  body("username")
+    .notEmpty()
+    .withMessage("Username should not be empty.")
+    .custom(async (value) => {
+      const username = await userStorage.checkUserName(value);
+      if (username) throw new Error("Username already registered.");
+    }),
+  body("password").notEmpty().withMessage("Password should not be empty."),
+  body("confirmpassword")
+    .notEmpty()
+    .withMessage("Confirmpassword should not be empty.")
+    .custom(value, (req) => {
+      if (value !== req.body.password)
+        throw new Error("Password should be match.");
+    }),
+  (req, res) => {
+    const errors = validationResult(req);
+    console.log(errors);
   },
 ];

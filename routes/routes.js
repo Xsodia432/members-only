@@ -6,7 +6,7 @@ const validation = require("../controllers/validatorController");
 
 router.get("/", userController.index);
 router.get("/signup", userController.signupPage);
-router.post("/signup", userController.signup);
+router.post("/signup", validation.signInField, userController.signup);
 router.post("/signout", userController.signout);
 router.post(
   "/signin",

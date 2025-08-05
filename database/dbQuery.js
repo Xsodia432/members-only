@@ -33,9 +33,18 @@ exports.createPost = async (title, postContent, timeStamp, id) => {
   );
 };
 exports.getPosts = async (tier) => {
-  const { rows } = await pool.query(
-    "SELECT posts.id,title,post,timestamp,first_name,last_name,username,users.id as uID FROM posts JOIN users ON users.id = posts.user_id JOIN membership ON users.membership_status = membership.id "
-  );
+  let rows = [];
+  if (tier) {
+    rows = await pool.query(
+      "SELECT posts.id,title,post,timestamp,first_name,last_name,username,users.id as uID FROM posts JOIN users ON users.id = posts.user_id JOIN membership ON users.membership_status = membership.id "
+    );
+  }
 
+  return rows;
+};
+exports.checkUserName = async (username) => {
+  const { rows } = await pool.query("SELECT * from users WHERE username=$1", [
+    username,
+  ]);
   return rows;
 };
