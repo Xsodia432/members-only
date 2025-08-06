@@ -1,0 +1,25 @@
+<div class="posts-container">
+  <%posts.forEach(val => { %>
+  <a href="/post/<%=val.id%>/<%=val.title%>">
+    <div class="post-content">
+      <%if(locals.helpers.user.tier !== 2) {%>
+      <div class="post-information-container">
+        <div class="post-profile-circle">
+          <%=val.first_name[0].toUpperCase()%><%=val.last_name[0].toUpperCase()%>
+        </div>
+        <span><%=val.first_name%> <%=val.last_name%></span>
+        <span class="time-stamp"
+          ><%=locals.helpers.formatDate(val.timestamp)%></span
+        >
+      </div>
+      <%}%>
+
+      <h1><%=val.title%></h1>
+      <div class="post-body">
+        <p><%=val.post%></p>
+      </div>
+    </div></a
+  >
+  <div class="line"></div>
+  <%})%>
+</div>

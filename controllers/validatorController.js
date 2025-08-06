@@ -13,7 +13,6 @@ exports.loginInput = [
       res.render("index", {
         title: "Home",
         errors: errors.array(),
-        user: null,
       });
       return;
     }
@@ -48,7 +47,7 @@ exports.checkMembership = (req, res, next) => {
   next();
 };
 exports.checkIfLogin = (req, res, next) => {
-  if (!req.user) {
+  if (!req.isAuthenticated()) {
     res.redirect("/");
     return;
   }
@@ -71,19 +70,27 @@ exports.signInField = [
     .notEmpty()
     .withMessage("Username should not be empty.")
     .custom(async (value) => {
-      const username = await userStorage.checkUserName(value);
-      if (username) throw new Error("Username already registered.");
+      const username = await userStorage.findUserByUserName(value);
+      if (username.length > 1) throw new Error("Username already registered.");
+      return true;
     }),
   body("password").notEmpty().withMessage("Password should not be empty."),
   body("confirmpassword")
     .notEmpty()
     .withMessage("Confirmpassword should not be empty.")
-    .custom(value, (req) => {
-      if (value !== req.body.password)
-        throw new Error("Password should be match.");
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error("Password don't match");
+      }
+      return true;
     }),
-  (req, res) => {
+
+  (req, res, next) => {
     const errors = validationResult(req);
-    console.log(errors);
+    if (!errors.isEmpty()) {
+      res.send({ errors: errors.array() });
+      return;
+    }
+    next();
   },
 ];

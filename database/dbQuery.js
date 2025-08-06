@@ -42,9 +42,13 @@ exports.getPosts = async (tier) => {
 
   return rows;
 };
-exports.checkUserName = async (username) => {
+exports.findUserByUserName = async (username) => {
   const { rows } = await pool.query("SELECT * from users WHERE username=$1", [
     username,
   ]);
+  return rows;
+};
+exports.findPostById = async (id) => {
+  const { rows } = await pool.query("SELECT * from posts WHERE id=$1", [id]);
   return rows;
 };

@@ -7,16 +7,8 @@ body {
   font-family: Roboto;
   background-color: rgb(43, 42, 42);
   color: white;
-  overflow: hidden;
 }
-.container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 10px;
-}
+
 .login-container {
   margin-top: 10px;
   max-width: 450px;
@@ -61,7 +53,7 @@ nav > div {
   z-index: 0;
   gap: 5px;
 }
-nav > div > a:nth-child(1) {
+.upgrade-to-member {
   background-color: rgb(47, 47, 53);
   border-radius: 10px;
   padding: 10px;
@@ -69,7 +61,7 @@ nav > div > a:nth-child(1) {
   font-weight: 900;
   border: 1px solid rgb(68, 67, 67);
 }
-nav > div > a:nth-child(2) {
+.create-post {
   background-color: rgb(47, 47, 53);
   border-radius: 10px;
   padding: 5px;
@@ -78,12 +70,12 @@ nav > div > a:nth-child(2) {
   font-weight: 900;
   border: 1px solid rgb(68, 67, 67);
 }
-nav > div > a:nth-child(1) > div {
+.upgrade-to-member > div {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-nav > div > a:nth-child(2) > div {
+.create-post > div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -108,21 +100,29 @@ nav > div > :hover:nth-child(2) {
   cursor: pointer;
 }
 .profile-content {
+  display: grid;
   position: absolute;
   z-index: 1;
-  background-color: rgb(43, 42, 42);
+  background-color: rgb(47, 47, 53);
   padding: 10px;
   border-radius: 10px;
-  top: 100%;
+  top: 105%;
   right: 0%;
-  transform: scaleY(0);
-  transform-origin: top;
-
-  transition: transform ease-in-out 0.2s;
+  transition: opacity ease-in-out 0.2s;
+  gap: 10px;
+  padding: 10px;
+  width: 150px;
+  opacity: 0;
 }
-
+.profile-content-head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+}
 .show {
-  transform: scaleY(1);
+  opacity: 1;
 }
 #signout-button {
   cursor: pointer;
@@ -188,28 +188,62 @@ form > textarea {
   resize: none;
   height: 200px;
 }
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 15px;
+}
 .posts-container {
   display: flex;
   flex-direction: column;
-  width: 700px;
-
-  padding: 10px;
-  border-bottom: 1px solid rgb(68, 67, 67);
-  gap: 10px;
+  width: 600px;
 }
-
-.posts-container:hover {
+.history-container {
+  width: 300px;
   background-color: rgb(47, 47, 53);
+  max-height: 400px;
+  padding: 15px;
+  border-radius: 10px;
+}
+.history-header-container {
+  display: flex;
+  justify-content: space-between;
+}
+.post-content {
   cursor: pointer;
+  padding: 10px;
+  margin-top: 10px;
+}
+.line {
+  border-bottom: 1px solid rgb(68, 67, 67);
+}
+.post-content:hover {
+  background-color: rgb(47, 47, 53);
   border-radius: 10px 10px 0px 0px;
   transition: ease-in-out 0.1s;
+}
+.post-body {
+  margin-top: 5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Set number of lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+.post-body > p {
+  text-align: justify;
+  color: rgb(171, 191, 196);
 }
 .post-information-container {
   display: flex;
   align-items: center;
+  justify-content: start;
   gap: 5px;
   font-size: 0.9rem;
   color: rgb(248, 248, 248);
+  margin-bottom: 5px;
 }
 .post-profile-circle {
   background-color: aliceblue;
@@ -225,4 +259,7 @@ form > textarea {
 p {
   font-size: 0.9rem;
   color: rgb(219, 217, 217);
+}
+.error-container {
+  margin-bottom: 10px;
 }

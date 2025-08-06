@@ -29,5 +29,9 @@ router.post(
 );
 router.get("/create", validation.checkIfLogin, userController.createPage);
 router.post("/create", validation.postValidation, userController.createPost);
-router.get("/post/:id/:title", validation.checkIfLogin);
+router.get(
+  "/post/:id/:title",
+  validation.checkIfLogin,
+  userController.viewPost
+);
 module.exports = router;

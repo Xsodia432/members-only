@@ -1,21 +1,33 @@
 <nav>
   <a href="/"><h1>Home</h1> </a>
   <div>
-    <% if(user.tier === 2) {%><a href="/membership"
+    <%if(locals.helpers.user.tier === 3) {%>
+    <a href="/membership" class="upgrade-to-member"
       ><div>Upgrade to Member</div></a
     ><%}%>
-    <a href="/create"
+    <a href="/create" class="create-post"
       ><div>
         <span class="mdi mdi-plus"> </span>
         <p>Create</p>
       </div></a
     >
-    <div class="profile-container" id="profile-container">JC</div>
+    <div class="profile-container" id="profile-container">
+      <%=locals.helpers.user.firstName[0].toUpperCase()%><%=locals.helpers.user.lastName[0].toUpperCase()%>
+    </div>
     <div class="profile-content" id="profile-content">
-      <form id="signout-form" action="/signout" method="POST">
-        <span><%=user.username%></span>
-        <button id="signout-button" type="submit">Signout</button>
-      </form>
+      <div class="profile-content-head">
+        <span><%=locals.helpers.user.userName%></span>
+        <h2>Hi,</h2>
+        <h2><%=locals.helpers.user.firstName%></h2>
+      </div>
+
+      <div class="profile-content-body">
+        <form id="signout-form" action="/signout" method="POST">
+          <button id="signout-button" type="submit" class="mdi mdi-logout">
+            Signout
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </nav>

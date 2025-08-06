@@ -1,33 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/css/style.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-    />
-    <script src="/scripts/script.js" defer></script>
-    <script src="/scripts/memberScript.js" defer></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"
-      rel="stylesheet"
-    />
-    <title><%=title%></title>
-  </head>
-  <body>
-    <%- include('nav',{user:user}) %>
-    <div class="container">
-      <form class="member-container" id="member-form">
-        <h2>Become a member to see who and when the post has been made!</h2>
-        <h3>All you need to do is answer this question.</h3>
-        <div id="error-container" class="error-container"></div>
-        <div id="question-container"></div>
+<%-include("header")%> <%- include('nav') %>
+<div class="container">
+  <form class="member-container" id="member-form">
+    <h2>Become a member to see who and when the post has been made!</h2>
+    <h3>All you need to do is answer this question.</h3>
+    <div id="error-container" class="error-container"></div>
+    <div id="question-container"></div>
 
-        <input type="text" name="membership" placeholder="Enter Answer" />
-        <button type="submit" class="btn-default">Submit</button>
-      </form>
-    </div>
-  </body>
-</html>
+    <input type="text" name="membership" placeholder="Enter Answer" />
+    <button type="submit" class="btn-default">Submit</button>
+  </form>
+</div>
+<%-include("footer")%>

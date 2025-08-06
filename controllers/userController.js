@@ -2,7 +2,7 @@ const userStorage = require("../database/dbQuery");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
-
+let history = [];
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
@@ -36,7 +36,6 @@ exports.index = async (req, res) => {
   res.render("index", {
     title: "Home",
     errors: [],
-    user: req.user,
     posts: posts.rows,
   });
 };
@@ -53,7 +52,7 @@ exports.signup = async (req, res) => {
     hashedPassword,
     3
   );
-  res.redirect("/");
+  res.send({ msg: "success" });
 };
 exports.signout = (req, res, next) => {
   req.logout((err) => {
@@ -64,7 +63,6 @@ exports.signout = (req, res, next) => {
 exports.memberUpgrade = async (req, res) => {
   res.render("memberPage", {
     title: "Membership",
-    user: req.user,
   });
 };
 exports.memberUpgradePost = async (req, res) => {
@@ -74,7 +72,7 @@ exports.memberUpgradePost = async (req, res) => {
   });
 };
 exports.createPage = async (req, res) => {
-  res.render("createPostPage", { title: "Create", user: req.user });
+  res.render("createPostPage", { title: "Create" });
 };
 exports.createPost = async (req, res) => {
   const timeStamp = new Date();
@@ -82,4 +80,18 @@ exports.createPost = async (req, res) => {
   console.log(title, postcontent);
   await userStorage.createPost(title, postcontent, timeStamp, req.user.id);
   res.send({ msg: "Created" });
+};
+exports.viewPost = async (req, res) => {
+  const { id, title } = req.params;
+  const post = await userStorage.findPostById(id);
+  if (history.find((val) => val.id === id)) {
+    if (history.length >= 5 && !history.find((val) => val.id === id)) {
+      history.pop();
+      history.unshift({ title, id });
+    }
+  } else {
+    history.push({ title, id });
+  }
+  console.log(post);
+  res.render("viewPost", { title: title, posts: post });
 };
