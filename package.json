@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node --watch app.js",
+    "start": "node app.js",
     "dbconfig": "node ./bin/dbConfig",
     "sessionconfig": "node ./bin/pgsimple"
   },
