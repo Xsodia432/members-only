@@ -7,6 +7,9 @@ const main = async () => {
   const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
+    },
   });
   await client.connect();
   await client.query(
