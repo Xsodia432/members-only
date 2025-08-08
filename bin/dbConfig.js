@@ -16,7 +16,7 @@ const main = async () => {
     "CREATE TABLE IF NOT EXISTS membership(id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,tier INTEGER)"
   );
   await client.query(
-    "CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, first_name VARCHAR(255),last_name VARCHAR(255),password VARCHAR(255),membership_status INTEGER REFERENCES membership(id))"
+    "CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, first_name VARCHAR(255),last_name VARCHAR(255),password VARCHAR(255),membership_status INTEGER REFERENCES membership(id),username)"
   );
 
   await client.query(
