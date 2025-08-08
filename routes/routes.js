@@ -14,8 +14,8 @@ router.post("/signin", validation.loginInput, (req, res, next) => {
 
     //check if user successfully authenticated
     if (!user)
-      return res.render("index", {
-        title: "Home",
+      return res.render("signin", {
+        title: "Sign In",
         errors: [{ msg: info.message || "Login Failed" }],
         posts: null,
       });

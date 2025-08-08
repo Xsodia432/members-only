@@ -15,13 +15,15 @@ const main = async () => {
   await client.query(
     "CREATE TABLE IF NOT EXISTS membership(id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,tier INTEGER)"
   );
+  await client.query("INSERT INTO membership(tier) VALUES(0),(1),(2)");
   await client.query(
-    "CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, first_name VARCHAR(255),last_name VARCHAR(255),password VARCHAR(255),membership_status INTEGER REFERENCES membership(id),username)"
+    "CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, first_name VARCHAR(255),last_name VARCHAR(255),password VARCHAR(255),membership_status INTEGER REFERENCES membership(id),username VARCHAR(255))"
   );
 
   await client.query(
     "CREATE TABLE IF NOT EXISTS posts(id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,title VARCHAR(255),post TEXT,timestamp TIMESTAMP,user_id INTEGER REFERENCES users(id) ON DELETE CASCADE) "
   );
+
   await client.query(
     "INSERT INTO users(first_name,last_name,password,membership_status,username) VALUES($1,$2,$3,$4,$5)",
     ["Colag", "Macdish", hashedPassword, 1, process.env.ADMIN_USERNAME]
