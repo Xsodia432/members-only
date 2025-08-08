@@ -10,8 +10,8 @@ exports.loginInput = [
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.render("index", {
-        title: "Home",
+      res.render("signin", {
+        title: "Sign In",
         errors: errors.array(),
       });
       return;
