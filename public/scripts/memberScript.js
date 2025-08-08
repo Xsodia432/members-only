@@ -19,7 +19,6 @@ const questionHandler = async () => {
 };
 
 const submitHandler = (answer) => {
-  console.log(answer);
   document
     .getElementById("member-form")
     .addEventListener("submit", async (ev) => {

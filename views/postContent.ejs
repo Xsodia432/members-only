@@ -1,16 +1,25 @@
 <div class="posts-container">
-  <%posts.forEach(val => { %>
+  <% if(posts) {%> <%posts.forEach(val => { %>
   <a href="/post/<%=val.id%>/<%=val.title%>">
     <div class="post-content">
       <%if(locals.helpers.user.tier !== 2) {%>
       <div class="post-information-container">
-        <div class="post-profile-circle">
-          <%=val.first_name[0].toUpperCase()%><%=val.last_name[0].toUpperCase()%>
+        <div class="post-information">
+          <div class="post-profile-circle">
+            <%=val.first_name[0].toUpperCase()%><%=val.last_name[0].toUpperCase()%>
+          </div>
+          <span><%=val.first_name%> <%=val.last_name%></span>
+          <span class="time-stamp"
+            ><%=locals.helpers.formatDate(val.timestamp)%></span
+          >
         </div>
-        <span><%=val.first_name%> <%=val.last_name%></span>
-        <span class="time-stamp"
-          ><%=locals.helpers.formatDate(val.timestamp)%></span
-        >
+        <%if(locals.helpers.user.tier === 0){%>
+        <form action="/delete/<%=val.id%>" method="POST" onsubmit="return cb()">
+          <button class="btn-delete" type="">
+            <span class="mdi mdi-delete"></span>
+          </button>
+        </form>
+        <%}%>
       </div>
       <%}%>
 
@@ -21,5 +30,7 @@
     </div></a
   >
   <div class="line"></div>
-  <%})%>
+  <%})%> <%}%> <%if(posts.length <= 0) {%>
+  <h2>No post currently</h2>
+  <%}%>
 </div>

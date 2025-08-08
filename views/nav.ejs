@@ -1,7 +1,8 @@
 <nav>
   <a href="/"><h1>Home</h1> </a>
+  <% if(locals.helpers.user.isSignedIn){%>
   <div>
-    <%if(locals.helpers.user.tier === 3) {%>
+    <%if(locals.helpers.user.tier === 2 ) {%>
     <a href="/membership" class="upgrade-to-member"
       ><div>Upgrade to Member</div></a
     ><%}%>
@@ -30,4 +31,11 @@
       </div>
     </div>
   </div>
+  <%}%> <% if(!locals.helpers.user.isSignedIn){%>
+  <div>
+    <a href="/sign-in" class="btn-default">Sign In</a>
+
+    <a href="/sign-up" class="btn-default"> Sign Up </a>
+  </div>
+  <%}%>
 </nav>

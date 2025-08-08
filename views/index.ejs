@@ -1,18 +1,3 @@
-<%-include("header")%> <% if(locals.helpers.user.isSignedIn){%><%-
-include('nav') %><%}%>
-<div class="container">
-  <%if(!locals.helpers.user.isSignedIn){%> <%- include('signin')%><%}%>
-  <%if(locals.helpers.user.isSignedIn) {%> <% if(posts) {%>
-  <%-include("postContent")%> <%}%> <%if(!posts) {%>
-  <h2>No post currently</h2>
-  <%}%>
-  <div class="history-container">
-    <div class="history-header-container">
-      <h4>History</h4>
-      <span>clear</span>
-    </div>
-  </div>
-
-  <%}%>
-</div>
+<%-include("header")%> <%- include('nav') %>
+<div class="container"><%-include("postContent")%></div>
 <%-include('footer')%>

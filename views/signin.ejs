@@ -1,28 +1,31 @@
-<div class="login-container">
-  <h3>Sign In</h3>
-  <form class="login-contents" method="POST" action="/signin">
-    <%if(errors.length !== 0) {%> <%for(let i = 0; i < errors.length;i++){%>
-    <p class="text-error"><%=errors[i].msg%></p>
-    <%}%> <%}%>
-    <div>
-      <label for="username">User Name</label>
-      <input
-        type="text"
-        name="username"
-        id="username"
-        class="default-input-field"
-      />
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        class="default-input-field"
-      />
-    </div>
-    <button class="btn-default">Log In</button>
-  </form>
-  <p>Don't have an account? <a href="/signup">sign up</a></p>
+<%-include("header")%> <%- include('nav') %>
+<div class="container">
+  <div class="login-container">
+    <h3>Sign In</h3>
+    <form class="login-contents" method="POST" action="/signin">
+      <%if(errors.length !== 0) {%> <%for(let i = 0; i < errors.length;i++){%>
+      <p class="text-error"><%=errors[i].msg%></p>
+      <%}%> <%}%>
+      <div>
+        <label for="username">User Name</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          class="default-input-field"
+        />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="default-input-field"
+        />
+      </div>
+      <button class="btn-default">Log In</button>
+    </form>
+  </div>
 </div>
+<%-include("footer")%>

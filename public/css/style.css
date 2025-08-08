@@ -191,13 +191,16 @@ form > textarea {
 .container {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 5px;
   gap: 15px;
 }
 .posts-container {
   display: flex;
   flex-direction: column;
   width: 600px;
+}
+.posts-container > h2 {
+  text-align: center;
 }
 .history-container {
   width: 300px;
@@ -232,6 +235,18 @@ form > textarea {
   text-overflow: ellipsis;
   word-break: break-word;
 }
+.post-content-view {
+  padding-bottom: 10px;
+}
+.post-body-view {
+  margin-top: 5px;
+
+  color: rgb(171, 191, 196);
+}
+.post-body-view > p {
+  font-size: 1rem;
+}
+
 .post-body > p {
   text-align: justify;
   color: rgb(171, 191, 196);
@@ -239,11 +254,36 @@ form > textarea {
 .post-information-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  color: rgb(248, 248, 248);
+  margin-bottom: 5px;
+}
+.post-information-container > div:nth-child(2) > span {
+  color: red;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.post-information-container > div:nth-child(2) {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-delete {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: rgb(190, 148, 148);
+  cursor: pointer;
+}
+
+.post-information {
+  display: flex;
+  align-items: center;
   justify-content: start;
   gap: 5px;
   font-size: 0.9rem;
-  color: rgb(248, 248, 248);
-  margin-bottom: 5px;
 }
 .post-profile-circle {
   background-color: aliceblue;

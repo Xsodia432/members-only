@@ -54,7 +54,11 @@ exports.checkIfLogin = (req, res, next) => {
   next();
 };
 exports.postValidation = [
-  body("title").notEmpty().withMessage("Title should not be empty."),
+  body("title")
+    .notEmpty()
+    .withMessage("Title should not be empty.")
+    .isLength({ min: 5, max: 255 })
+    .withMessage("Title should be between 5 and 255 long."),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -65,14 +69,25 @@ exports.postValidation = [
   },
 ];
 exports.signInField = [
-  body("firstname").notEmpty().withMessage("Firstname should be empty."),
+  body("firstname")
+    .notEmpty()
+    .withMessage("Firstname should not be empty.")
+    .isLength({ min: 1, max: 80 })
+    .withMessage("Lastname should be between 1 and 80 long."),
+  body("lastname")
+    .optional({ checkFalsy: true })
+    .isLength({ min: 1, max: 80 })
+    .withMessage("Lastname should be between 1 and 80 long."),
   body("username")
     .notEmpty()
     .withMessage("Username should not be empty.")
+    .isLength({ min: 5, max: 80 })
+    .withMessage("Username should be between 5 and 80 long.")
     .custom(async (value) => {
       const username = await userStorage.findUserByUserName(value);
-      if (username.length > 1) throw new Error("Username already registered.");
-      return true;
+      if (username.length > 0) {
+        throw new Error("Username already registered.");
+      }
     }),
   body("password").notEmpty().withMessage("Password should not be empty."),
   body("confirmpassword")
@@ -87,6 +102,7 @@ exports.signInField = [
 
   (req, res, next) => {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
       res.send({ errors: errors.array() });
       return;

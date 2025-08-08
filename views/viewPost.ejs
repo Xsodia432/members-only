@@ -1,4 +1,44 @@
-<%-include("header")%> <% if(locals.helpers.user.isSignedIn){%><%-
-include('nav') %><%}%>
-<div class="container"><%-include("postContent")%></div>
+<%-include("header")%><%- include('nav') %>
+<div class="container">
+  <div class="posts-container">
+    <%posts.forEach(val => { %>
+    <div class="post-content-view">
+      <div class="post-information-container">
+        <%if(locals.helpers.user.tier !== 2) {%>
+        <div class="post-information">
+          <div class="post-profile-circle">
+            <%=val.first_name[0].toUpperCase()%><%=val.last_name[0].toUpperCase()%>
+          </div>
+          <span><%=val.first_name%> <%=val.last_name%></span>
+          <span class="time-stamp"
+            ><%=locals.helpers.formatDate(val.timestamp)%></span
+          >
+        </div>
+        <%}%>
+
+        <div>
+          <%if(locals.helpers.user.tier === 0){%>
+          <form
+            action="/delete/<%=val.id%>"
+            method="POST"
+            onsubmit="return cb()"
+          >
+            <button class="btn-delete" type="submit">
+              <span class="mdi mdi-delete"></span>
+            </button>
+          </form>
+          <%} %>
+          <span><a href="/">X</a></span>
+        </div>
+      </div>
+
+      <h1><%=val.title%></h1>
+      <div class="post-body-view">
+        <p><%=val.post%></p>
+      </div>
+    </div>
+    <div class="line"></div>
+    <%})%>
+  </div>
+</div>
 <%-include("footer")%>

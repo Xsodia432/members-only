@@ -2,16 +2,15 @@ const userStorage = require("../database/dbQuery");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
-let history = [];
+
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
       const user = await userStorage.getUser(username, null);
-
       if (!user) return done(null, false, { message: "Username not found." });
-
-      if (!bcrypt.compare(user.password, password))
-        return done(null, false, { message: "Password incorrect." });
+      const match = await bcrypt.compare(password, user.password);
+      console.log(match);
+      if (!match) return done(null, false, { message: "Password incorrect." });
 
       done(null, user);
     } catch (err) {
@@ -31,7 +30,7 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 exports.index = async (req, res) => {
-  const posts = await userStorage.getPosts(req.user ? req.user.tier : null);
+  const posts = await userStorage.getPosts();
 
   res.render("index", {
     title: "Home",
@@ -77,21 +76,21 @@ exports.createPage = async (req, res) => {
 exports.createPost = async (req, res) => {
   const timeStamp = new Date();
   const { title, postcontent } = req.body;
-  console.log(title, postcontent);
+
   await userStorage.createPost(title, postcontent, timeStamp, req.user.id);
   res.send({ msg: "Created" });
 };
 exports.viewPost = async (req, res) => {
   const { id, title } = req.params;
   const post = await userStorage.findPostById(id);
-  if (history.find((val) => val.id === id)) {
-    if (history.length >= 5 && !history.find((val) => val.id === id)) {
-      history.pop();
-      history.unshift({ title, id });
-    }
-  } else {
-    history.push({ title, id });
-  }
-  console.log(post);
   res.render("viewPost", { title: title, posts: post });
+};
+exports.deletePost = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  await userStorage.deletePostById(id);
+  res.redirect("/");
+};
+exports.getSignIn = (req, res) => {
+  res.render("signin", { title: "Sign In", errors: [] });
 };

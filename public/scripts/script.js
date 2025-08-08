@@ -28,7 +28,7 @@ async function handleSubmit(event) {
     if (!response.ok) throw new Error("There is something wrong");
     else {
       const result = await response.json();
-      if (result.errors.length > 0) {
+      if (result.errors) {
         document.getElementById("error-container").textContent = "";
         result.errors.forEach((val) => {
           const errorMsg = document.createElement("p");
@@ -41,4 +41,7 @@ async function handleSubmit(event) {
   } catch (err) {
     console.log(err);
   }
+}
+function cb() {
+  return confirm("Are your sure?");
 }

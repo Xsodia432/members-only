@@ -34,11 +34,10 @@ exports.createPost = async (title, postContent, timeStamp, id) => {
 };
 exports.getPosts = async (tier) => {
   let rows = [];
-  if (tier) {
-    rows = await pool.query(
-      "SELECT posts.id,title,post,timestamp,first_name,last_name,username,users.id as uID FROM posts JOIN users ON users.id = posts.user_id JOIN membership ON users.membership_status = membership.id "
-    );
-  }
+
+  rows = await pool.query(
+    "SELECT posts.id,title,post,timestamp,first_name,last_name,username,users.id as uID FROM posts JOIN users ON users.id = posts.user_id JOIN membership ON users.membership_status = membership.id "
+  );
 
   return rows;
 };
@@ -49,6 +48,12 @@ exports.findUserByUserName = async (username) => {
   return rows;
 };
 exports.findPostById = async (id) => {
-  const { rows } = await pool.query("SELECT * from posts WHERE id=$1", [id]);
+  const { rows } = await pool.query(
+    "SELECT posts.id,title,post,timestamp,first_name,last_name,username,users.id as uID FROM posts JOIN users ON users.id = posts.user_id JOIN membership ON users.membership_status = membership.id WHERE posts.id=$1",
+    [id]
+  );
   return rows;
+};
+exports.deletePostById = async (id) => {
+  await pool.query("DELETE FROM posts WHERE id=$1", [id]);
 };
