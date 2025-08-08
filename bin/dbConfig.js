@@ -20,11 +20,11 @@ const main = async () => {
   );
 
   await client.query(
-    "CREATE TABLE IF NOT EXISTS posts(id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,title VARCHAR(255),post TEXT,timestamp TIMESTAMP,user_id INTEGER REFERENCES users(id)) ON DELETE CASCADE"
+    "CREATE TABLE IF NOT EXISTS posts(id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,title VARCHAR(255),post TEXT,timestamp TIMESTAMP,user_id INTEGER REFERENCES users(id) ON DELETE CASCADE) "
   );
   await client.query(
     "INSERT INTO users(first_name,last_name,password,membership_status,username) VALUES($1,$2,$3,$4,$5)",
-    ["Colag", "Macdish", hashedPassword, 1, xsodia4320]
+    ["Colag", "Macdish", hashedPassword, 1, process.env.ADMIN_USERNAME]
   );
   await client.end();
   console.log("done");
