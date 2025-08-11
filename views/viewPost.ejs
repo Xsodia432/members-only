@@ -4,10 +4,12 @@
     <%posts.forEach(val => { %>
     <div class="post-content-view">
       <div class="post-information-container">
-        <%if(locals.helpers.user.tier !== 2) {%>
+        <%if(locals.helpers.user.tier !== 2 && locals.helpers.user.tier !==
+        null) {%>
         <div class="post-information">
           <div class="post-profile-circle">
-            <%=val.first_name[0].toUpperCase()%><%=val.last_name[0].toUpperCase()%>
+            <%=val.first_name[0].toUpperCase()%><%=val.last_name ?
+            val.last_name[0].toUpperCase() : "O"%>
           </div>
           <span><%=val.first_name%> <%=val.last_name%></span>
           <span class="time-stamp"
@@ -28,7 +30,7 @@
             </button>
           </form>
           <%} %>
-          <span><a href="/">X</a></span>
+          <span style="color: red"><a href="/">X</a></span>
         </div>
       </div>
 

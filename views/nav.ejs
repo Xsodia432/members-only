@@ -13,7 +13,8 @@
       </div></a
     >
     <div class="profile-container" id="profile-container">
-      <%=locals.helpers.user.firstName[0].toUpperCase()%><%=locals.helpers.user.lastName[0].toUpperCase()%>
+      <%=locals.helpers.user.firstName[0].toUpperCase()%><%=locals.helpers.user.lastName
+      ? locals.helpers.user.lastName[0].toUpperCase() : "O"%>
     </div>
     <div class="profile-content" id="profile-content">
       <div class="profile-content-head">

@@ -2,11 +2,13 @@
   <% if(posts) {%> <%posts.forEach(val => { %>
   <a href="/post/<%=val.id%>/<%=val.title%>">
     <div class="post-content">
-      <%if(locals.helpers.user.tier !== 2) {%>
+      <%if(locals.helpers.user.tier !== 2 && locals.helpers.user.tier !== null)
+      {%>
       <div class="post-information-container">
         <div class="post-information">
           <div class="post-profile-circle">
-            <%=val.first_name[0].toUpperCase()%><%=val.last_name[0].toUpperCase()%>
+            <%=val.first_name[0].toUpperCase()%><%=val.last_name ?
+            val.last_name[0].toUpperCase() : "O"%>
           </div>
           <span><%=val.first_name%> <%=val.last_name%></span>
           <span class="time-stamp"

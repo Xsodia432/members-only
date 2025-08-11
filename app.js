@@ -42,7 +42,7 @@ app.use((req, res, next) => {
       isSignedIn: req.user ? true : false,
     },
   };
-
+  console.log(res.locals.helpers);
   next();
 });
 
